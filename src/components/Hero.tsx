@@ -4,19 +4,44 @@ import { palette } from '../theme';
 
 export default function Hero() {
   return (
-    <Box id="home" component="section" sx={{ minHeight: { lg: 'calc(100vh - 100px)' }, bgcolor: palette.background, overflow: 'hidden' }}>
+    <Box
+      id="home"
+      component="section"
+      sx={{
+        position: 'relative',
+        minHeight: { lg: 'calc(100vh - 100px)' },
+        bgcolor: palette.background,
+        overflow: 'hidden',
+      }}
+    >
       <Container
-        maxWidth="xl"
+        disableGutters
+        maxWidth={false}
         sx={{
-          display: 'grid',
-          gridTemplateColumns: { xs: '1fr', lg: 'minmax(0, 1.05fr) minmax(360px, 0.95fr)' },
+          display: { xs: 'block', md: 'grid' },
+          gridTemplateColumns: { md: 'minmax(0, 1fr)', lg: 'minmax(0, 0.9fr) minmax(520px, 1.1fr)' },
           minHeight: { xs: 'auto', lg: 'calc(100vh - 100px)' },
           alignItems: 'center',
           gap: { xs: 2.5, sm: 4, md: 5.5 },
           pt: { xs: 2, sm: 4, lg: 0 },
+          pl: {
+            xs: 2.5,
+            sm: 4,
+            lg: 'max(32px, calc((100vw - 1536px) / 2 + 32px))',
+          },
+          pr: { xs: 2.5, sm: 4, md: 0 },m:0
         }}
       >
-        <Stack spacing={{ xs: 3, md: 5 }} sx={{ py: { xs: 5, sm: 6, md: 8 }, zIndex: 2, textAlign: { xs: 'center', lg: 'left' } }}>
+        <Stack
+          spacing={{ xs: 3, md: 5 }}
+          sx={{
+            width: { xs: '100%', lg: '46vw' },
+            maxWidth: { lg: 760 },
+            py: { xs: 5, sm: 6, md: 8 },
+            zIndex: 2,
+            textAlign: { xs: 'center', lg: 'left' },
+          }}
+        >
           <Box>
             <Typography
               variant="h1"
@@ -66,28 +91,28 @@ export default function Hero() {
             </Button>
           </Stack>
         </Stack>
-        <Box
-          component="img"
-          src={heroArrow}
-          alt=""
-          aria-hidden="true"
-          sx={{
-            display: { xs: 'none', md: 'block' },
-            width: '100%',
-            maxWidth: { xs: 520, lg: 'none' },
-            mx: { xs: 'auto', lg: 0 },
-            height: { xs: 280, sm: 360, md: 460, lg: 'min(88vh, 850px)' },
-            minHeight: { xs: 0, lg: 560 },
-            borderTopLeftRadius: { xs: 44, sm: 72, lg: 120 },
-            borderBottomLeftRadius: { xs: 44, sm: 72, lg: 120 },
-            borderTopRightRadius: { xs: 44, lg: 0 },
-            borderBottomRightRadius: { xs: 44, lg: 0 },
-            objectFit: 'cover',
-            objectPosition: 'center',
-            boxShadow: 'inset 0 0 120px rgba(85, 242, 245, 0.14)',
-          }}
-        />
       </Container>
+      <Box
+        component="img"
+        src={heroArrow}
+        alt=""
+        aria-hidden="true"
+        sx={{
+          display: { xs: 'none', md: 'block' },
+          position: 'absolute',
+          right: 'calc((100vw - 100%) * -1)',
+          top: { md: 120, lg: 0 },
+          bottom: { lg: 0 },
+          width: { md: '44vw', lg: '42vw', xl: '43vw' },
+          maxWidth: 'none',
+          height: { md: 520, lg: 'calc(100vh - 100px)' },
+          minHeight: { lg: 620 },
+          objectFit: 'contain',
+          objectPosition: 'right center',
+          borderRadius: { md: '48px 0 0 48px', lg: '96px 0 0 96px' },
+          zIndex: 1,
+        }}
+      />
     </Box>
   );
 }
