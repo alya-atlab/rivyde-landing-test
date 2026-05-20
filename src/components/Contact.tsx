@@ -86,7 +86,7 @@ export default function Contact() {
               Email
             </Button>
             <Button
-              href="https://www.linkedin.com"
+              href="https://www.linkedin.com/company/rivyde"
               target="_blank"
               rel="noreferrer"
               variant="outlined"
