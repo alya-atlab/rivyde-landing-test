@@ -1,5 +1,6 @@
 import { Box, Container, Stack, Typography } from '@mui/material';
 import orbit from '../assets/orbit.png';
+import { fadeUp, floatSoft } from '../animations';
 import { palette } from '../theme';
 
 export default function About() {
@@ -29,10 +30,24 @@ export default function About() {
           opacity: { xs: 0.28, md: 0.8 },
           left: { xs: -64, sm: -48, md: 12 },
           top: 0,
+          animation: `${floatSoft} 5.5s ease-in-out infinite`,
+          '@media (prefers-reduced-motion: reduce)': {
+            animation: 'none',
+          },
         }}
       />
       <Container maxWidth="lg">
-        <Stack alignItems="center" sx={{ gap: { xs: 2.25, sm: 3, md: 4.25 }, textAlign: 'center' }}>
+        <Stack
+          alignItems="center"
+          sx={{
+            gap: { xs: 2.25, sm: 3, md: 4.25 },
+            textAlign: 'center',
+            animation: `${fadeUp} 850ms cubic-bezier(0.16, 1, 0.3, 1) both`,
+            '@media (prefers-reduced-motion: reduce)': {
+              animation: 'none',
+            },
+          }}
+        >
           <Typography sx={{ color: palette.cyan, fontSize: 'clamp(21px, 2.5vw, 28px)', fontWeight: 800, lineHeight: 1.2 }}>
             About us
           </Typography>
@@ -61,6 +76,10 @@ export default function About() {
           opacity: { xs: 0.28, md: 0.8 },
           right: { xs: -64, sm: -44, md: 16 },
           bottom: -6,
+          animation: `${floatSoft} 5.5s ease-in-out 1s infinite`,
+          '@media (prefers-reduced-motion: reduce)': {
+            animation: 'none',
+          },
         }}
       />
     </Box>

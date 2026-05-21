@@ -1,10 +1,44 @@
 import { AppBar, Box, Button, Container, Stack } from '@mui/material';
+import { useEffect, useState } from 'react';
 import logo from '../assets/rivyde-logo.png';
 import { palette } from '../theme';
 
 const navItems = ['Home', 'Services', 'About', 'Contact'];
 
 export default function Navbar() {
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    const sectionIds = navItems.map((item) => item.toLowerCase());
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    if (!sections.length) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visibleEntry?.target.id) {
+          setActiveSection(visibleEntry.target.id);
+        }
+      },
+      {
+        rootMargin: '-34% 0px -52% 0px',
+        threshold: [0.05, 0.2, 0.45, 0.7],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <AppBar
       position="sticky"
@@ -18,7 +52,7 @@ export default function Navbar() {
           direction={{ xs: 'column', sm: 'row' }}
           alignItems="center"
           sx={{
-            minHeight: { xs: 'auto', md: 100 },
+            minHeight: { xs: 'auto', md: 84, lg: 72 },
             py: { xs: 1.75, sm: 0 },
             gap: { xs: 1.5, sm: 3, md: 'clamp(24px, 7vw, 108px)' },
             justifyContent: { xs: 'center', sm: 'space-between', md: 'flex-end' },
@@ -27,10 +61,10 @@ export default function Navbar() {
           <Box
             component="img"
             src={logo}
-            alt="Rivyde"
-            sx={{
-              mr: { xs: 0, sm: 'auto' },
-              width: { xs: 132, sm: 152, md: 'clamp(160px, 16vw, 210px)' },
+              alt="Rivyde"
+              sx={{
+                mr: { xs: 0, sm: 'auto' },
+              width: { xs: 132, sm: 152, md: 'clamp(148px, 13vw, 190px)' },
               height: 'auto',
               objectFit: 'contain',
               display: 'block',
@@ -51,10 +85,12 @@ export default function Navbar() {
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 sx={{
-                  color: item === 'Home' ? '#00edf5' : palette.text,
+                  color: activeSection === item.toLowerCase() ? '#00edf5' : palette.text,
                   fontSize: { xs: 12, md: 13 },
                   p: { xs: '6px 0', md: '8px 0' },
                   minWidth: 'auto',
+                  transition: 'color 180ms ease',
+                  '&:hover': { color: palette.cyan },
                 }}
               >
                 {item}

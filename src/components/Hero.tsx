@@ -1,5 +1,6 @@
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import heroArrow from '../assets/hero-arrow.png';
+import { fadeUp, floatSoft } from '../animations';
 import { palette } from '../theme';
 
 export default function Hero() {
@@ -29,7 +30,8 @@ export default function Hero() {
             sm: 4,
             lg: 'max(32px, calc((100vw - 1536px) / 2 + 32px))',
           },
-          pr: { xs: 2.5, sm: 4, md: 0 },m:0
+          pr: { xs: 2.5, sm: 4, md: 0 },
+          m: 0,
         }}
       >
         <Stack
@@ -40,6 +42,10 @@ export default function Hero() {
             py: { xs: 5, sm: 6, md: 8 },
             zIndex: 2,
             textAlign: { xs: 'center', lg: 'left' },
+            animation: `${fadeUp} 900ms cubic-bezier(0.16, 1, 0.3, 1) both`,
+            '@media (prefers-reduced-motion: reduce)': {
+              animation: 'none',
+            },
           }}
         >
           <Box>
@@ -82,11 +88,29 @@ export default function Hero() {
             <Button
               href="#contact"
               variant="contained"
-              sx={{ bgcolor: '#91a0af', color: 'white', fontSize: 13, boxShadow: 'none', '&:hover': { bgcolor: '#7f8e9d', boxShadow: 'none' } }}
+              sx={{
+                bgcolor: '#91a0af',
+                color: 'white',
+                fontSize: 13,
+                boxShadow: 'none',
+                transition: 'transform 220ms ease, background-color 220ms ease, box-shadow 220ms ease',
+                '&:hover': { bgcolor: '#7f8e9d', boxShadow: '0 10px 26px rgba(145, 160, 175, 0.28)', transform: 'translateY(-5px)' },
+              }}
             >
               Contact us
             </Button>
-            <Button href="#services" variant="outlined" sx={{ color: 'white', fontSize: 13, border: `3px solid ${palette.border}`, bgcolor: 'rgba(7, 14, 20, 0.3)' }}>
+            <Button
+              href="#services"
+              variant="outlined"
+              sx={{
+                color: 'white',
+                fontSize: 13,
+                border: `3px solid ${palette.border}`,
+                bgcolor: 'rgba(7, 14, 20, 0.3)',
+                transition: 'transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease',
+                '&:hover': { transform: 'translateY(-5px)', borderColor: palette.cyan, boxShadow: '0 0 22px rgba(85, 242, 245, 0.24)' },
+              }}
+            >
               Services
             </Button>
           </Stack>
@@ -111,6 +135,10 @@ export default function Hero() {
           objectPosition: 'right center',
           borderRadius: { md: '48px 0 0 48px', lg: '96px 0 0 96px' },
           zIndex: 1,
+          animation: `${floatSoft} 5s ease-in-out infinite`,
+          '@media (prefers-reduced-motion: reduce)': {
+            animation: 'none',
+          },
         }}
       />
     </Box>
